@@ -22,10 +22,10 @@ Trap types:
 
 ## GD-02: Current annual leave
 - **Question:** How many annual leave days do employees get?
-- **Expected:** 18 days
+- **Expected:** 22 working days
 - **Source:** handbook/leave-policy.md
 - **Trap type:** Conflicting source
-- **Trap detail:** handbook/leave-policy-2023-archived.md says 22
+- **Trap detail:** handbook/leave-policy-2023-archived.md says 18 working days
 
 ## GD-03: Premium economy eligibility
 - **Question:** When is an employee allowed to fly premium economy on international travel?
