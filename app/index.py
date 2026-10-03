@@ -31,7 +31,14 @@ def build_index():
         ids=[c["id"] for c in chunks],
         documents=texts,
         embeddings=embeddings,
-        metadatas=[{"source": c["source"], "section": c["section"]} for c in chunks],
+        metadatas=[
+            {
+                "source": c["source"],
+                "section": c["section"],
+                "status": "archived" if "archived" in c["source"] else "current",
+            }
+            for c in chunks
+        ],
     )
     return collection
 
