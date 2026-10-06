@@ -1,0 +1,51 @@
+[
+  {
+    "id": "GD-01",
+    "question": "What is the annual health insurance coverage for an individual employee?",
+    "expectedSources": ["handbook/benefits.md"],
+    "answerContains": ["800,000"],
+    "answerable": true
+  },
+  {
+    "id": "GD-02",
+    "question": "How many annual leave days do employees get?",
+    "expectedSources": ["handbook/leave-policy.md"],
+    "answerContains": ["22"],
+    "answerable": true
+  },
+  {
+    "id": "GD-03",
+    "question": "When is an employee allowed to fly premium economy on international travel?",
+    "expectedSources": ["handbook/expenses-and-travel.md"],
+    "answerContains": ["8 hours"],
+    "answerable": true
+  },
+  {
+    "id": "GD-04",
+    "question": "Can I book premium economy for a 6-hour international flight?",
+    "expectedSources": ["handbook/expenses-and-travel.md"],
+    "answerContains": ["No"],
+    "answerable": true
+  },
+  {
+    "id": "GD-05",
+    "question": "Within how many days must a new OS update be installed on a company laptop?",
+    "expectedSources": ["it/laptop-policy.md"],
+    "answerContains": ["7 days"],
+    "answerable": true
+  },
+  {
+    "id": "GD-06",
+    "question": "What should I do if a public network blocks the VPN?",
+    "expectedSources": ["it/vpn-setup.md"],
+    "answerContains": ["hotspot", "ticket"],
+    "answerable": true
+  },
+  {
+    "id": "GD-07",
+    "question": "Where can employees park their cars at the Lahore office?",
+    "expectedSources": [],
+    "answerContains": ["don't know"],
+    "answerable": false
+  }
+]
