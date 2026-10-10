@@ -1,0 +1,29 @@
+name: Retrieval quality gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  retrieval-evals:
+    runs-on: ubuntu-latest
+    container: python:3.14-slim
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: pip install -r requirements-ci.txt
+
+      - name: Build the vector index
+        run: python app/index.py
+
+      - name: Start API and run retrieval evals
+        run: |
+          uvicorn api:app --app-dir app &
+          for i in $(seq 1 60); do
+            python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/docs')" && break
+            sleep 2
+          done
+          pytest evals/test_retrieval.py -v -s
