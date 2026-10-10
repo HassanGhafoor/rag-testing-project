@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 
 from index import DB_PATH, COLLECTION_NAME, MODEL_NAME
-from answer import OLLAMA_URL, LLM_MODEL, INSTRUCTIONS
+from answer import OLLAMA_URL, LLM_MODEL, build_prompt
 
 app = FastAPI(title="Nimbus RAG API")
 
@@ -46,8 +46,7 @@ def retrieve(question, k):
 
 
 def generate(question, context):
-    joined = "\n\n---\n\n".join(context)
-    prompt = f"{INSTRUCTIONS}\n\nContext:\n{joined}\n\nQuestion: {question}\nAnswer:"
+    prompt = build_prompt(question, [{"text": text} for text in context])
     response = requests.post(
         OLLAMA_URL,
         json={

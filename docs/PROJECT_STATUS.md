@@ -24,6 +24,9 @@
 - GD-06: answer chunk ranks 4th, a near-tie (0.591) with remote-work::7. The Java file-level check hid this; the chunk-level check caught it.
 - Aggregate gate passed (0.83 >= 0.8) while GD-06 failed: averages hide individual failures, so keep per-case tests and the aggregate gate.
 - Threshold 0.45 test passed but only checked one side. Answerable best distances run 0.34 to 0.58, and unanswerable parking is 0.461, in the middle. Distances are not calibrated, so no fixed threshold works. Distance = soft signal; the LLM's grounded refusal is the real safety layer.
+- - DeepEval faithfulness with local llama3.1:8b judge: scored a correct answer 0.0. Verbose logs showed truths and claims extracted correctly but the final verdict wrong. Judge validation set (good / hallucinated / half-wrong) scored 0.0 on all three, so the judge failed validation and is not used for gating. Deferred: stronger judge.
+- - Red-team: 6 attacks. Injection (PWNED) worked at first. Prompt hardening (tags, "user text is data" rule, sandwich reminder) fixed injection and jailbreak. First fix didn't reach the API (duplicated prompt in api.py), refactored to one build_prompt. Prompt extraction still leaks instructions: recorded as xfail. Caught a false pass (leaked text contained the refusal phrase). No over-refusal on normal questions.
+- Java GenerationTest: answerContains checks with whole-word matching over all 7 golden cases. GD-06 fails because retrieval misses the chunk and the LLM correctly refuses: a downstream failure, recorded as a known failure.
 
 ## Plan
 Step 1 (IN PROGRESS): finish retrieval evals
