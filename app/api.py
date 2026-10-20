@@ -2,12 +2,17 @@ import chromadb
 import requests
 from fastapi import FastAPI
 from pydantic import BaseModel
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, CrossEncoder
 
 from index import DB_PATH, COLLECTION_NAME, MODEL_NAME
 from answer import OLLAMA_URL, LLM_MODEL, build_prompt
 
 app = FastAPI(title="Nimbus RAG API")
+
+RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+CANDIDATES = 10
+
+reranker = CrossEncoder(RERANK_MODEL)
 
 model = SentenceTransformer(MODEL_NAME)
 collection = chromadb.PersistentClient(path=DB_PATH).get_collection(COLLECTION_NAME)
@@ -31,10 +36,10 @@ def retrieve(question, k):
     vector = model.encode([question]).tolist()
     results = collection.query(
         query_embeddings=vector,
-        n_results=k,
+        n_results=max(k, CANDIDATES),
         where={"status": "current"},
     )
-    return [
+    hits = [
         {
             "id": results["ids"][0][i],
             "source": results["metadatas"][0][i]["source"],
@@ -43,6 +48,14 @@ def retrieve(question, k):
         }
         for i in range(len(results["ids"][0]))
     ]
+
+    pairs = [(question, hit["text"]) for hit in hits]
+    scores = reranker.predict(pairs)
+    for hit, score in zip(hits, scores):
+        hit["rerank_score"] = float(score)
+
+    hits.sort(key=lambda h: h["rerank_score"], reverse=True)
+    return hits[:k]
 
 
 def generate(question, context):

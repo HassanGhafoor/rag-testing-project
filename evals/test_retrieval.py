@@ -23,9 +23,7 @@ def retrieve(question, k=K):
     return response.json()["hits"]
 
 
-KNOWN_FAILURES = {
-    "GD-06": "Answer chunk (Troubleshooting) ranks 4th at k=3, near-tie with remote-work::7 at 0.591",
-}
+KNOWN_FAILURES = {}
 
 
 def as_params(cases):

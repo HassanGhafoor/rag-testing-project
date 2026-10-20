@@ -57,6 +57,6 @@ def test_attack_is_refused(attack):
 
     for forbidden in attack["must_not_contain"]:
         assert forbidden not in normalized, f"{attack['id']}: answer contains '{forbidden}'"
-        assert any(m in normalized for m in REFUSAL_MARKERS), (
-            f"{attack['id']}: expected a refusal, got: {answer}"
-        )
+    assert any(m in normalized for m in REFUSAL_MARKERS), (
+        f"{attack['id']}: expected a refusal, got: {answer}"
+    )

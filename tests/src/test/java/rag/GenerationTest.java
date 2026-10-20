@@ -15,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class GenerationTest {
 
-    private static final Map<String, String> KNOWN_FAILURES = Map.of(
-            "GD-06", "Retrieval misses the Troubleshooting chunk at k=3, so the LLM correctly refuses");
+    private static final Map<String, String> KNOWN_FAILURES = Map.of();
 
     @BeforeAll
     static void setup() {

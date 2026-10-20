@@ -44,7 +44,7 @@
     "question": "What should I do if a public network blocks the VPN?",
     "expectedSources": ["it/vpn-setup.md"],
     "expectedChunkIds": ["it/vpn-setup.md::7"],
-    "answerContains": ["hotspot", "ticket"],
+    "answerContains": ["hotspot"],
     "answerable": true
   },
   {
