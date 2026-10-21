@@ -3,3 +3,7 @@
 .idea/
 .deepeval/
 .env.local
+tickets.jsonl
+.claude/settings.local.json
+__pycache__/
+chroma_db/
